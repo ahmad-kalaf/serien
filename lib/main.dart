@@ -10,10 +10,9 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapters();
   var box = await Hive.openBox('serienbox');
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => SerienProvider(box),),
-  ],
-  child: const Serien(),),);
+  runApp(
+    MultiProvider(providers: [ChangeNotifierProvider(create: (context) => SerienProvider(box))], child: const Serien()),
+  );
 }
 
 class Serien extends StatelessWidget {
@@ -21,6 +20,6 @@ class Serien extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: SerienHomePage(), debugShowCheckedModeBanner: false,);
+    return MaterialApp(home: SerienHomePage(), debugShowCheckedModeBanner: false);
   }
 }
