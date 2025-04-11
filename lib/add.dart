@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:serien/series.dart';
 
@@ -42,43 +40,37 @@ class _AddState extends State<Add> {
         ),
       ),
       appBar: AppBar(),
-      body: Align(
-        alignment: Alignment.center,
-        child: AspectRatio(
-          aspectRatio: Platform.isAndroid || Platform.isIOS ? MediaQuery.of(context).size.aspectRatio : (9 / 16),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                spacing: 10,
-                children: [
-                  TextFormField(
-                    controller: _titleTextController,
-                    decoration: deco(prefixIcon: Icon(Icons.title_rounded), labelText: "Title"),
-                    validator: fieldValidator(),
-                  ),
-                  TextFormField(
-                    controller: _releaseDateTextController,
-                    keyboardType: TextInputType.datetime,
-                    decoration: deco(prefixIcon: Icon(Icons.date_range_rounded), labelText: "Release Year"),
-                    validator: fieldValidator(),
-                  ),
-                  TextFormField(
-                    controller: _seasonCountTextController,
-                    keyboardType: TextInputType.number,
-                    decoration: deco(prefixIcon: Icon(Icons.onetwothree_rounded), labelText: "Number of Seasons"),
-                    validator: fieldValidator(),
-                  ),
-                  TextFormField(
-                    controller: _reviewTextController,
-                    keyboardType: TextInputType.datetime,
-                    decoration: deco(prefixIcon: Icon(Icons.reviews_rounded), labelText: "Rating (1 to 10)"),
-                    validator: fieldValidator(),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            spacing: 10,
+            children: [
+              TextFormField(
+                controller: _titleTextController,
+                decoration: deco(prefixIcon: Icon(Icons.title_rounded), labelText: "Title"),
+                validator: fieldValidator(),
               ),
-            ),
+              TextFormField(
+                controller: _releaseDateTextController,
+                keyboardType: TextInputType.datetime,
+                decoration: deco(prefixIcon: Icon(Icons.date_range_rounded), labelText: "Release Year"),
+                validator: fieldValidator(),
+              ),
+              TextFormField(
+                controller: _seasonCountTextController,
+                keyboardType: TextInputType.number,
+                decoration: deco(prefixIcon: Icon(Icons.onetwothree_rounded), labelText: "Number of Seasons"),
+                validator: fieldValidator(),
+              ),
+              TextFormField(
+                controller: _reviewTextController,
+                keyboardType: TextInputType.datetime,
+                decoration: deco(prefixIcon: Icon(Icons.reviews_rounded), labelText: "Rating (1 to 10)"),
+                validator: fieldValidator(),
+              ),
+            ],
           ),
         ),
       ),
