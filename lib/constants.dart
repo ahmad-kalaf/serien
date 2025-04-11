@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-final kBackGroundColor = Colors.blueGrey;
-final kSelectedBackGroundColor = Colors.red;
-final kForeGroundColor = Colors.white;
+final kBackgroundColor = Colors.blueGrey; // Hintergrundfarbe
+final kSelectedBackgroundColor = Colors.red; // Ausgewählte Hintergrundfarbe
+final kForegroundColor = Colors.white; // Vordergrundfarbe

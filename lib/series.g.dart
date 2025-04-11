@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'serie.dart';
+part of 'series.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SerieAdapter extends TypeAdapter<Serie> {
+class SeriesAdapter extends TypeAdapter<Series> {
   @override
   final int typeId = 0;
 
   @override
-  Serie read(BinaryReader reader) {
+  Series read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Serie(
+    return Series(
       fields[0] as String,
       (fields[1] as num).toInt(),
       (fields[2] as num).toInt(),
@@ -25,17 +25,17 @@ class SerieAdapter extends TypeAdapter<Serie> {
   }
 
   @override
-  void write(BinaryWriter writer, Serie obj) {
+  void write(BinaryWriter writer, Series obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.anzahlStaffel)
+      ..write(obj.numberOfSeasons)
       ..writeByte(2)
-      ..write(obj.bewertung)
+      ..write(obj.rating)
       ..writeByte(3)
-      ..write(obj.erscheinungsjahr);
+      ..write(obj.releaseYear);
   }
 
   @override
@@ -44,7 +44,7 @@ class SerieAdapter extends TypeAdapter<Serie> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SerieAdapter &&
+      other is SeriesAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -3,10 +3,10 @@
 // Check in to version control
 
 import 'package:hive_ce/hive.dart';
-import 'package:serien/serie.dart';
+import 'package:serien/series.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
-    registerAdapter(SerieAdapter());
+    registerAdapter(SeriesAdapter());
   }
 }

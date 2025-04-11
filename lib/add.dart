@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:serien/serie.dart';
+import 'package:serien/series.dart';
 
-class Hinzufuegen extends StatefulWidget {
-  const Hinzufuegen({super.key});
+class Add extends StatefulWidget {
+  const Add({super.key});
 
   @override
-  State<Hinzufuegen> createState() => _HinzufuegenState();
+  State<Add> createState() => _AddState();
 }
 
-class _HinzufuegenState extends State<Hinzufuegen> {
+class _AddState extends State<Add> {
   final _formKey = GlobalKey<FormState>();
-  final _titleTxtController = TextEditingController();
-  final _seasonCountTxtController = TextEditingController();
-  final _reviewTxtController = TextEditingController();
-  final _releaseDateTxtController = TextEditingController();
+  final _titleTextController = TextEditingController();
+  final _seasonCountTextController = TextEditingController();
+  final _reviewTextController = TextEditingController();
+  final _releaseDateTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +27,16 @@ class _HinzufuegenState extends State<Hinzufuegen> {
           ),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              Serie serie = Serie(
-                _titleTxtController.text,
-                int.parse(_seasonCountTxtController.text),
-                int.parse(_reviewTxtController.text),
-                DateTime(int.parse(_releaseDateTxtController.text)),
+              Series series = Series(
+                _titleTextController.text,
+                int.parse(_seasonCountTextController.text),
+                int.parse(_reviewTextController.text),
+                DateTime(int.parse(_releaseDateTextController.text)),
               );
-              Navigator.pop(context, serie); // Rückgabe an den Aufrufer
+              Navigator.pop(context, series); // Return to caller
             }
           },
-          child: Text("Speichern"),
+          child: Text("Save"),
         ),
       ),
       appBar: AppBar(),
@@ -48,26 +48,26 @@ class _HinzufuegenState extends State<Hinzufuegen> {
             spacing: 10,
             children: [
               TextFormField(
-                controller: _titleTxtController,
-                decoration: deco(prefixIcon: Icon(Icons.title_rounded), labelText: "Titel"),
+                controller: _titleTextController,
+                decoration: deco(prefixIcon: Icon(Icons.title_rounded), labelText: "Title"),
                 validator: fieldValidator(),
               ),
               TextFormField(
-                controller: _releaseDateTxtController,
+                controller: _releaseDateTextController,
                 keyboardType: TextInputType.datetime,
-                decoration: deco(prefixIcon: Icon(Icons.date_range_rounded), labelText: "Erscheinungsjahr"),
+                decoration: deco(prefixIcon: Icon(Icons.date_range_rounded), labelText: "Release Year"),
                 validator: fieldValidator(),
               ),
               TextFormField(
-                controller: _seasonCountTxtController,
+                controller: _seasonCountTextController,
                 keyboardType: TextInputType.number,
-                decoration: deco(prefixIcon: Icon(Icons.onetwothree_rounded), labelText: "Anzahl Staffeln"),
+                decoration: deco(prefixIcon: Icon(Icons.onetwothree_rounded), labelText: "Number of Seasons"),
                 validator: fieldValidator(),
               ),
               TextFormField(
-                controller: _reviewTxtController,
+                controller: _reviewTextController,
                 keyboardType: TextInputType.datetime,
-                decoration: deco(prefixIcon: Icon(Icons.reviews_rounded), labelText: "Bewertung (1 bis 10)"),
+                decoration: deco(prefixIcon: Icon(Icons.reviews_rounded), labelText: "Rating (1 to 10)"),
                 validator: fieldValidator(),
               ),
             ],
@@ -79,7 +79,7 @@ class _HinzufuegenState extends State<Hinzufuegen> {
 
   String? Function(String?)? fieldValidator() => (value) {
     if (value == null || value.isEmpty) {
-      return "Bitte ausfüllen";
+      return "Please fill out";
     }
     return null;
   };
