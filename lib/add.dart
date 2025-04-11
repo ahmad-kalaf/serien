@@ -11,7 +11,7 @@ class Add extends StatefulWidget {
 class _AddState extends State<Add> {
   final _formKey = GlobalKey<FormState>();
   final _titleTextController = TextEditingController();
-  final _seasonCountTextController = TextEditingController();
+  final _seasonsCountTextController = TextEditingController();
   final _reviewTextController = TextEditingController();
   final _releaseDateTextController = TextEditingController();
 
@@ -29,7 +29,7 @@ class _AddState extends State<Add> {
             if (_formKey.currentState!.validate()) {
               Series series = Series(
                 _titleTextController.text,
-                int.parse(_seasonCountTextController.text),
+                int.parse(_seasonsCountTextController.text),
                 int.parse(_reviewTextController.text),
                 DateTime(int.parse(_releaseDateTextController.text)),
               );
@@ -56,19 +56,19 @@ class _AddState extends State<Add> {
                 controller: _releaseDateTextController,
                 keyboardType: TextInputType.datetime,
                 decoration: deco(prefixIcon: Icon(Icons.date_range_rounded), labelText: "Release Year"),
-                validator: fieldValidator(),
+                validator: fieldValidator(additionalValidator: _checkReleaseDate),
               ),
               TextFormField(
-                controller: _seasonCountTextController,
+                controller: _seasonsCountTextController,
                 keyboardType: TextInputType.number,
                 decoration: deco(prefixIcon: Icon(Icons.onetwothree_rounded), labelText: "Number of Seasons"),
-                validator: fieldValidator(),
+                validator: fieldValidator(additionalValidator: _checkSeasonsCount),
               ),
               TextFormField(
                 controller: _reviewTextController,
                 keyboardType: TextInputType.datetime,
                 decoration: deco(prefixIcon: Icon(Icons.reviews_rounded), labelText: "Rating (1 to 10)"),
-                validator: fieldValidator(),
+                validator: fieldValidator(additionalValidator: _checkReview),
               ),
             ],
           ),
@@ -77,12 +77,55 @@ class _AddState extends State<Add> {
     );
   }
 
-  String? Function(String?)? fieldValidator() => (value) {
+  String? Function(String?)? fieldValidator({String? Function()? additionalValidator}) => (value) {
     if (value == null || value.isEmpty) {
-      return "Please fill out";
+      return "Bitte ausfüllen";
+    }
+    if (additionalValidator != null) {
+      // returns null or "Ungültige Eingabe"
+      return additionalValidator();
     }
     return null;
   };
+
+  String? _checkReleaseDate() {
+    try {
+      int year = int.parse(_releaseDateTextController.text);
+      if (year < 1500 || year > (DateTime.now().year + 200)) {
+        return "Ungültige Eingabe";
+      }
+    } catch (e) {
+      // handle error (e.g. empty _releaseDateTextController.text)
+      return "Ungültige Eingabe";
+    }
+    return null;
+  }
+
+  String? _checkReview() {
+    try {
+      int review = int.parse(_reviewTextController.text);
+      if (review < 1 || review > 10) {
+        return "Ungültige Eingabe";
+      }
+    } catch (e) {
+      // handle error (e.g. empty _releaseDateTextController.text)
+      return "Ungültige Eingabe";
+    }
+    return null;
+  }
+
+  String? _checkSeasonsCount() {
+    try {
+      int seasonsCount = int.parse(_seasonsCountTextController.text);
+      if (seasonsCount < 1) {
+        return "Ungültige Eingabe";
+      }
+    } catch (e) {
+      // handle error (e.g. empty _releaseDateTextController.text)
+      return "Ungültige Eingabe";
+    }
+    return null;
+  }
 
   InputDecoration deco({Widget? prefixIcon, String? labelText}) => InputDecoration(
     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueGrey, width: 2.0)),
